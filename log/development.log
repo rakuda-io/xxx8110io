@@ -1,0 +1,2 @@
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_test` DEFAULT CHARACTER SET `utf8mb4`[0m
