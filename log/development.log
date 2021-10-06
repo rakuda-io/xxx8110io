@@ -25903,3 +25903,100 @@ Migrating to SortByColumnsToStocks (20211006034736)
   [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
   [1m[36mHolding Update (1.5ms)[0m  [1m[33mUPDATE `holdings` SET `holdings`.`dividend_amount` = 4.24, `holdings`.`dividend_rate` = 2.66, `holdings`.`total_dividend_amount` = 190.8, `holdings`.`updated_at` = '2021-10-06 05:01:04.592921' WHERE `holdings`.`id` = 15[0m
   [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/users/2/" for 172.21.0.1 at 2021-10-06 14:14:36 +0900
+  [1m[35m (7.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Api::UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (4.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1[0m
+  ↳ app/controllers/api/users_controller.rb:11:in `show'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with User (0.76ms)
+Completed 200 OK in 41ms (Views: 4.6ms | ActiveRecord: 19.7ms | Allocations: 9403)
+
+
+Started GET "/api/users/2/holdings" for 172.21.0.1 at 2021-10-06 14:14:47 +0900
+Processing by Api::HoldingsController#index as HTML
+  Parameters: {"user_id"=>"2"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1[0m
+  ↳ app/controllers/api/holdings_controller.rb:6:in `index'
+  [1m[36mHolding Load (11.1ms)[0m  [1m[34mSELECT `holdings`.* FROM `holdings` WHERE `holdings`.`user_id` = 2 ORDER BY `holdings`.`created_at` DESC[0m
+  ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (1.4ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 6876 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.8ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 4302 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.6ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 7157 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (1.0ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 5753 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (1.0ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 3400 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (1.0ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 4147 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.5ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 6961 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (47.7ms)
+Completed 200 OK in 217ms (Views: 91.9ms | ActiveRecord: 30.8ms | Allocations: 29733)
+
+
+Started GET "/api/users/2/" for 172.21.0.1 at 2021-10-06 14:14:55 +0900
+Processing by Api::UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1[0m
+  ↳ app/controllers/api/users_controller.rb:11:in `show'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with User (0.3ms)
+Completed 200 OK in 11ms (Views: 3.6ms | ActiveRecord: 1.4ms | Allocations: 955)
+
+
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` LIMIT 11[0m
+  [1m[36mHolding Load (3.2ms)[0m  [1m[34mSELECT `holdings`.* FROM `holdings` LIMIT 11[0m
+Started GET "/api/users/2/holdings" for 172.21.0.1 at 2021-10-06 14:15:48 +0900
+Processing by Api::HoldingsController#index as HTML
+  Parameters: {"user_id"=>"2"}
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1[0m
+  ↳ app/controllers/api/holdings_controller.rb:6:in `index'
+  [1m[36mHolding Load (1.6ms)[0m  [1m[34mSELECT `holdings`.* FROM `holdings` WHERE `holdings`.`user_id` = 2 ORDER BY `holdings`.`created_at` DESC[0m
+  ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.8ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 6876 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.7ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 4302 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.9ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 7157 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.8ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 5753 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.6ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 3400 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.6ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 4147 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.5ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 6961 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (161.77ms)
+Completed 200 OK in 178ms (Views: 161.9ms | ActiveRecord: 9.2ms | Allocations: 14308)
+
+
+Started GET "/api/users/1" for 172.21.0.1 at 2021-10-06 14:15:58 +0900
+Processing by Api::UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (6.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  ↳ app/controllers/api/users_controller.rb:11:in `show'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with User (2.51ms)
+Completed 200 OK in 17ms (Views: 5.0ms | ActiveRecord: 6.5ms | Allocations: 968)
+
+
+Started GET "/api/users/1/holdings" for 172.21.0.1 at 2021-10-06 14:16:33 +0900
+Processing by Api::HoldingsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  ↳ app/controllers/api/holdings_controller.rb:6:in `index'
+  [1m[36mHolding Load (2.8ms)[0m  [1m[34mSELECT `holdings`.* FROM `holdings` WHERE `holdings`.`user_id` = 1 ORDER BY `holdings`.`created_at` DESC[0m
+  ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (1.2ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 7971 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.7ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 3400 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers]   [1m[36mStock Load (0.6ms)[0m  [1m[34mSELECT `stocks`.* FROM `stocks` WHERE `stocks`.`id` = 6961 LIMIT 1[0m
+[active_model_serializers]   ↳ app/controllers/api/holdings_controller.rb:8:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (23.61ms)
+Completed 200 OK in 71ms (Views: 28.6ms | ActiveRecord: 27.6ms | Allocations: 24536)
+
+

@@ -1,0 +1,50 @@
+  [1m[35m (63.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS `xxx8110io_test`[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (5.3ms)[0m  [1m[35mDROP TABLE IF EXISTS `holdings` CASCADE[0m
+  [1m[35m (103.1ms)[0m  [1m[35mCREATE TABLE `holdings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `user_id` bigint NOT NULL, `stock_id` bigint NOT NULL, `quantity` float(24), `dividend_amount` float(24), `dividend_rate` float(24), `total_dividend_amount` float(24), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL,  INDEX `index_holdings_on_stock_id`  (`stock_id`),  INDEX `index_holdings_on_user_id`  (`user_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS `sessions` CASCADE[0m
+  [1m[35m (32.4ms)[0m  [1m[35mCREATE TABLE `sessions` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `session_id` varchar(255) NOT NULL, `data` longtext, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_sessions_on_session_id`  (`session_id`),  INDEX `index_sessions_on_updated_at`  (`updated_at`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (1.3ms)[0m  [1m[35mDROP TABLE IF EXISTS `stocks` CASCADE[0m
+  [1m[35m (18.6ms)[0m  [1m[35mCREATE TABLE `stocks` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `company_name` varchar(255), `ticker_symbol` varchar(255), `country` varchar(255), `sector` varchar(255), `url` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS `users` CASCADE[0m
+  [1m[35m (24.3ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `provider` varchar(255) DEFAULT 'email' NOT NULL, `uid` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `reset_password_token` varchar(255), `reset_password_sent_at` datetime, `allow_password_change` tinyint(1) DEFAULT FALSE, `remember_created_at` datetime, `name` varchar(255), `email` varchar(255), `tokens` text, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_users_on_email`  (`email`), UNIQUE INDEX `index_users_on_reset_password_token`  (`reset_password_token`), UNIQUE INDEX `index_users_on_uid_and_provider`  (`uid`, `provider`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (67.5ms)[0m  [1m[35mALTER TABLE `holdings` ADD CONSTRAINT `fk_rails_1a40ae8eaa`
+FOREIGN KEY (`stock_id`)
+  REFERENCES `stocks` (`id`)
+[0m
+  [1m[35m (23.8ms)[0m  [1m[35mALTER TABLE `holdings` ADD CONSTRAINT `fk_rails_b5f25ff569`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (8.6ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (5.1ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES (20211006034736)[0m
+  [1m[35m (2.7ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES
+(20211006002702),
+(20211006003448),
+(20211006003900),
+(20211006015034),
+(20211006015145),
+(20211006015255),
+(20211006015815),
+(20211006020433),
+(20211006034305);
+
+[0m
+  [1m[35m (15.9ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (3.9ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.9ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'test', '2021-10-06 05:19:47.494800', '2021-10-06 05:19:47.494800')[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('schema_sha1', '6acf03ab56d50af1574c39f1378f7fed20ba80a6', '2021-10-06 05:19:47.506332', '2021-10-06 05:19:47.506332')[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1'[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1'[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (2.2ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1'[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
