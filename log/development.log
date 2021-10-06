@@ -284,3 +284,39 @@ Migrating to SortByReferenceToHoldings (20211006020433)
   [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
   [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
   [1m[35m (2.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started POST "/api/auth" for 172.20.0.1 at 2021-10-06 11:42:19 +0900
+  [1m[35m (5.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Api::Auth::RegistrationsController#create as */*
+  Parameters: {"name"=>"Koume-chan", "email"=>"koume@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (8.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'koume@example.com' AND `users`.`provider` = 'email' LIMIT 1[0m
+  [1m[36mUser Create (8.0ms)[0m  [1m[32mINSERT INTO `users` (`uid`, `encrypted_password`, `name`, `email`, `created_at`, `updated_at`) VALUES ('koume@example.com', '$2a$12$98MxcFfGB/sxAXSPkXQ7huRQJsxpnr.OesXRlSEIMmzuVeAXme6hu', 'Koume-chan', 'koume@example.com', '2021-10-06 02:42:26.277691', '2021-10-06 02:42:26.277691')[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Update (26.7ms)[0m  [1m[33mUPDATE `users` SET `users`.`tokens` = '{\"t_5luDC8XaAMQte0yuezLA\":{\"token\":\"$2a$10$QHr0Sn.aoBPo5EmSJvhJFOt4NzNAjtjC0fVwcCeUCj3XgYeNXMFPu\",\"expiry\":1634697746}}', `users`.`updated_at` = '2021-10-06 02:42:26.354899' WHERE `users`.`id` = 1[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (1.5ms)[0m  [1m[37mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1 FOR UPDATE[0m
+  [1m[36mUser Update (1.9ms)[0m  [1m[33mUPDATE `users` SET `users`.`tokens` = '{\"t_5luDC8XaAMQte0yuezLA\":{\"token\":\"$2a$10$cXDWl5lHkFa.zol44FM2BO1bKtMHbSMbvKh60VHHURA3zHYnfIp7C\",\"expiry\":1634697746,\"last_token\":\"$2a$10$QHr0Sn.aoBPo5EmSJvhJFOt4NzNAjtjC0fVwcCeUCj3XgYeNXMFPu\",\"updated_at\":\"2021-10-06T02:42:26Z\"}}', `users`.`updated_at` = '2021-10-06 02:42:26.459879' WHERE `users`.`id` = 1[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 200 OK in 804ms (Views: 12.6ms | ActiveRecord: 69.4ms | Allocations: 41176)
+
+
+Started POST "/api/auth/sign_in" for 172.20.0.1 at 2021-10-06 11:42:44 +0900
+Processing by DeviseTokenAuth::SessionsController#create as */*
+  Parameters: {"email"=>"koume@example.com", "password"=>"[FILTERED]"}
+  [1m[36mUser Load (22.8ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE (BINARY email = 'koume@example.com' AND provider= 'email') ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Update (3.9ms)[0m  [1m[33mUPDATE `users` SET `users`.`tokens` = '{\"t_5luDC8XaAMQte0yuezLA\":{\"token\":\"$2a$10$cXDWl5lHkFa.zol44FM2BO1bKtMHbSMbvKh60VHHURA3zHYnfIp7C\",\"expiry\":1634697746,\"last_token\":\"$2a$10$QHr0Sn.aoBPo5EmSJvhJFOt4NzNAjtjC0fVwcCeUCj3XgYeNXMFPu\",\"updated_at\":\"2021-10-06T02:42:26Z\"},\"JWYEdQc10YEy3wtdGd1djQ\":{\"token\":\"$2a$10$FrVY1O3f/J1ZwC9nXzmA/.BvJmhL97mYFb3F5J59XHyn39XJzF5pW\",\"expiry\":1634697765}}', `users`.`updated_at` = '2021-10-06 02:42:45.419093' WHERE `users`.`id` = 1[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (2.3ms)[0m  [1m[37mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1 FOR UPDATE[0m
+  [1m[36mUser Update (1.9ms)[0m  [1m[33mUPDATE `users` SET `users`.`tokens` = '{\"t_5luDC8XaAMQte0yuezLA\":{\"token\":\"$2a$10$cXDWl5lHkFa.zol44FM2BO1bKtMHbSMbvKh60VHHURA3zHYnfIp7C\",\"expiry\":1634697746,\"last_token\":\"$2a$10$QHr0Sn.aoBPo5EmSJvhJFOt4NzNAjtjC0fVwcCeUCj3XgYeNXMFPu\",\"updated_at\":\"2021-10-06T02:42:26Z\"},\"JWYEdQc10YEy3wtdGd1djQ\":{\"token\":\"$2a$10$udUv5sQh5W314KMdTfi4ROrBdaIPcMQWWSwbLzSAla5pPfXxMwsYO\",\"expiry\":1634697765,\"last_token\":\"$2a$10$FrVY1O3f/J1ZwC9nXzmA/.BvJmhL97mYFb3F5J59XHyn39XJzF5pW\",\"updated_at\":\"2021-10-06T02:42:45Z\"}}', `users`.`updated_at` = '2021-10-06 02:42:45.518640' WHERE `users`.`id` = 1[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 485ms (Views: 1.8ms | ActiveRecord: 39.3ms | Allocations: 13914)
+
+

@@ -32,6 +32,27 @@ module Xxx8110io
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
+
+
     config.api_only = true
+
+    #devise_token_authの設定(クッキーオーバーフローのエラー関連で一旦コメントアウト)
+    #session_storeからactive_recored_storeに変更（gem activerecord-session_store）
+    # config.session_store :active_record_store, key: '_interslice_session'
+    # config.middleware.use ActionDispatch::Cookies # Required for all session management
+    # config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
+    # config.middleware.use ActionDispatch::Flash
+
+    #devise_token_authの設定
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+                 :headers => :any,
+                 :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+                 :methods => [:get, :post, :options, :delete, :put]
+      end
+    end
+
   end
 end
