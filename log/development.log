@@ -1,2 +1,286 @@
   [1m[35m (2.2ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_development` DEFAULT CHARACTER SET `utf8mb4`[0m
   [1m[35m (0.4ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (229.8ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (30.5ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (9.8ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (4.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateStockData (20211006002650)
+  [1m[35m (26.6ms)[0m  [1m[35mCREATE TABLE `stock_data` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `company_name` varchar(255), `ticker_symbol` varchar(255), `country` varchar(255), `sector` varchar(255), `url` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (7.6ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006002650')[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateHoldings (20211006002702)
+  [1m[35m (33.3ms)[0m  [1m[35mCREATE TABLE `holdings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `stock_id` bigint NOT NULL, `user_id` bigint NOT NULL, `quantity` float(24), `dividend_amount` float(24), `dividend_rate` float(24), `total_dividend_amount` float(24), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL,  INDEX `index_holdings_on_stock_id`  (`stock_id`),  INDEX `index_holdings_on_user_id`  (`user_id`), CONSTRAINT `fk_rails_1a40ae8eaa`
+FOREIGN KEY (`stock_id`)
+  REFERENCES `stocks` (`id`)
+, CONSTRAINT `fk_rails_b5f25ff569`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (4.6ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (2.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateHoldings (20211006002702)
+  [1m[35m (65.5ms)[0m  [1m[35mCREATE TABLE `holdings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `stock_id` bigint NOT NULL, `user_id` bigint NOT NULL, `quantity` float(24), `dividend_amount` float(24), `dividend_rate` float(24), `total_dividend_amount` float(24), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL,  INDEX `index_holdings_on_stock_id`  (`stock_id`),  INDEX `index_holdings_on_user_id`  (`user_id`), CONSTRAINT `fk_rails_1a40ae8eaa`
+FOREIGN KEY (`stock_id`)
+  REFERENCES `stocks` (`id`)
+, CONSTRAINT `fk_rails_b5f25ff569`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (6.7ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (24.9ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (10.0ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (2.7ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateStockData (20211006002650)
+  [1m[35m (9.0ms)[0m  [1m[35mCREATE TABLE `stock_data` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `company_name` varchar(255), `ticker_symbol` varchar(255), `country` varchar(255), `sector` varchar(255), `url` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (2.6ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006002650')[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateHoldings (20211006002702)
+  [1m[35m (22.3ms)[0m  [1m[35mCREATE TABLE `holdings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `stock_id` bigint NOT NULL, `user_id` bigint NOT NULL, `quantity` float(24), `dividend_amount` float(24), `dividend_rate` float(24), `total_dividend_amount` float(24), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL,  INDEX `index_holdings_on_stock_id`  (`stock_id`),  INDEX `index_holdings_on_user_id`  (`user_id`), CONSTRAINT `fk_rails_1a40ae8eaa`
+FOREIGN KEY (`stock_id`)
+  REFERENCES `stocks` (`id`)
+, CONSTRAINT `fk_rails_b5f25ff569`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateHoldings (20211006002702)
+  [1m[35m (13.0ms)[0m  [1m[35mCREATE TABLE `holdings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `stock_id` bigint NOT NULL, `user_id` bigint NOT NULL, `quantity` float(24), `dividend_amount` float(24), `dividend_rate` float(24), `total_dividend_amount` float(24), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL,  INDEX `index_holdings_on_stock_id`  (`stock_id`),  INDEX `index_holdings_on_user_id`  (`user_id`), CONSTRAINT `fk_rails_1a40ae8eaa`
+FOREIGN KEY (`stock_id`)
+  REFERENCES `stocks` (`id`)
+, CONSTRAINT `fk_rails_b5f25ff569`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (27.5ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (8.8ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (2.8ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateStockData (20211006002650)
+  [1m[35m (9.2ms)[0m  [1m[35mCREATE TABLE `stock_data` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `company_name` varchar(255), `ticker_symbol` varchar(255), `country` varchar(255), `sector` varchar(255), `url` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (2.9ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006002650')[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateHoldings (20211006002702)
+  [1m[35m (19.9ms)[0m  [1m[35mCREATE TABLE `holdings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `stock_id` bigint NOT NULL, `user_id` bigint NOT NULL, `quantity` float(24), `dividend_amount` float(24), `dividend_rate` float(24), `total_dividend_amount` float(24), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL,  INDEX `index_holdings_on_stock_id`  (`stock_id`),  INDEX `index_holdings_on_user_id`  (`user_id`), CONSTRAINT `fk_rails_1a40ae8eaa`
+FOREIGN KEY (`stock_id`)
+  REFERENCES `stocks` (`id`)
+, CONSTRAINT `fk_rails_b5f25ff569`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (25.9ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (9.8ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (2.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateStockData (20211006002650)
+  [1m[35m (33.5ms)[0m  [1m[35mCREATE TABLE `stock_data` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `company_name` varchar(255), `ticker_symbol` varchar(255), `country` varchar(255), `sector` varchar(255), `url` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (2.9ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006002650')[0m
+  [1m[35m (5.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateHoldings (20211006002702)
+  [1m[35m (49.7ms)[0m  [1m[35mCREATE TABLE `holdings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `stock_id` bigint NOT NULL, `user_id` bigint NOT NULL, `quantity` float(24), `dividend_amount` float(24), `dividend_rate` float(24), `total_dividend_amount` float(24), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL,  INDEX `index_holdings_on_stock_id`  (`stock_id`),  INDEX `index_holdings_on_user_id`  (`user_id`), CONSTRAINT `fk_rails_1a40ae8eaa`
+FOREIGN KEY (`stock_id`)
+  REFERENCES `stocks` (`id`)
+, CONSTRAINT `fk_rails_b5f25ff569`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (2.9ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateHoldings (20211006002702)
+  [1m[35m (25.6ms)[0m  [1m[35mCREATE TABLE `holdings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `stock_id` bigint NOT NULL, `user_id` bigint NOT NULL, `quantity` float(24), `dividend_amount` float(24), `dividend_rate` float(24), `total_dividend_amount` float(24), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL,  INDEX `index_holdings_on_stock_id`  (`stock_id`),  INDEX `index_holdings_on_user_id`  (`user_id`), CONSTRAINT `fk_rails_1a40ae8eaa`
+FOREIGN KEY (`stock_id`)
+  REFERENCES `stocks` (`id`)
+, CONSTRAINT `fk_rails_b5f25ff569`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (10.3ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (2.2ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateHoldings (20211006002702)
+  [1m[35m (75.9ms)[0m  [1m[35mCREATE TABLE `holdings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `quantity` float(24), `dividend_amount` float(24), `dividend_rate` float(24), `total_dividend_amount` float(24), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (5.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006002702')[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to DeviseTokenAuthCreateUsers (20211006003448)
+  [1m[35m (25.1ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `provider` varchar(255) DEFAULT 'email' NOT NULL, `uid` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `reset_password_token` varchar(255), `reset_password_sent_at` datetime, `allow_password_change` tinyint(1) DEFAULT FALSE, `remember_created_at` datetime, `name` varchar(255), `email` varchar(255), `tokens` text, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (75.7ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_email`  ON `users` (`email`) [0m
+  [1m[35m (14.1ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_uid_and_provider`  ON `users` (`uid`, `provider`) [0m
+  [1m[35m (16.1ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_reset_password_token`  ON `users` (`reset_password_token`) [0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006003448')[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddSessionsTable (20211006003900)
+  [1m[35m (15.1ms)[0m  [1m[35mCREATE TABLE `sessions` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `session_id` varchar(255) NOT NULL, `data` longtext, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (10.2ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_sessions_on_session_id`  ON `sessions` (`session_id`) [0m
+  [1m[35m (12.8ms)[0m  [1m[35mCREATE  INDEX `index_sessions_on_updated_at`  ON `sessions` (`updated_at`) [0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006003900')[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateStocks (20211006013549)
+  [1m[35m (11.1ms)[0m  [1m[35mCREATE TABLE `stocks` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `company_name` varchar(255), `ticker_symbol` varchar(255), `country` varchar(255), `sector` varchar(255), `url` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006013549')[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.3ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (3.0ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2021-10-06 01:46:51.767798', '2021-10-06 01:46:51.767798')[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (91.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS `xxx8110io_development`[0m
+  [1m[35m (3.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS `xxx8110io_test`[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (10.4ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (9.6ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateHoldings (20211006002702)
+  [1m[35m (11.7ms)[0m  [1m[35mCREATE TABLE `holdings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `quantity` float(24), `dividend_amount` float(24), `dividend_rate` float(24), `total_dividend_amount` float(24), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (2.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006002702')[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to DeviseTokenAuthCreateUsers (20211006003448)
+  [1m[35m (9.8ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `provider` varchar(255) DEFAULT 'email' NOT NULL, `uid` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `reset_password_token` varchar(255), `reset_password_sent_at` datetime, `allow_password_change` tinyint(1) DEFAULT FALSE, `remember_created_at` datetime, `name` varchar(255), `email` varchar(255), `tokens` text, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (11.4ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_email`  ON `users` (`email`) [0m
+  [1m[35m (9.0ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_uid_and_provider`  ON `users` (`uid`, `provider`) [0m
+  [1m[35m (9.0ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_reset_password_token`  ON `users` (`reset_password_token`) [0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006003448')[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddSessionsTable (20211006003900)
+  [1m[35m (9.1ms)[0m  [1m[35mCREATE TABLE `sessions` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `session_id` varchar(255) NOT NULL, `data` longtext, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (7.7ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_sessions_on_session_id`  ON `sessions` (`session_id`) [0m
+  [1m[35m (8.9ms)[0m  [1m[35mCREATE  INDEX `index_sessions_on_updated_at`  ON `sessions` (`updated_at`) [0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006003900')[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateStocks (20211006013549)
+  [1m[35m (7.9ms)[0m  [1m[35mCREATE TABLE `stocks` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `company_name` varchar(255), `ticker_symbol` varchar(255), `country` varchar(255), `sector` varchar(255), `url` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006013549')[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2021-10-06 01:47:16.316715', '2021-10-06 01:47:16.316715')[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (39.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS `xxx8110io_development`[0m
+  [1m[35m (1.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS `xxx8110io_test`[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE DATABASE `xxx8110io_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (19.1ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (12.6ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateHoldings (20211006002702)
+  [1m[35m (10.9ms)[0m  [1m[35mCREATE TABLE `holdings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `quantity` float(24), `dividend_amount` float(24), `dividend_rate` float(24), `total_dividend_amount` float(24), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.1ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006002702')[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to DeviseTokenAuthCreateUsers (20211006003448)
+  [1m[35m (9.4ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `provider` varchar(255) DEFAULT 'email' NOT NULL, `uid` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `reset_password_token` varchar(255), `reset_password_sent_at` datetime, `allow_password_change` tinyint(1) DEFAULT FALSE, `remember_created_at` datetime, `name` varchar(255), `email` varchar(255), `tokens` text, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (12.8ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_email`  ON `users` (`email`) [0m
+  [1m[35m (9.5ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_uid_and_provider`  ON `users` (`uid`, `provider`) [0m
+  [1m[35m (8.1ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_reset_password_token`  ON `users` (`reset_password_token`) [0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006003448')[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddSessionsTable (20211006003900)
+  [1m[35m (11.9ms)[0m  [1m[35mCREATE TABLE `sessions` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `session_id` varchar(255) NOT NULL, `data` longtext, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (8.0ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_sessions_on_session_id`  ON `sessions` (`session_id`) [0m
+  [1m[35m (8.5ms)[0m  [1m[35mCREATE  INDEX `index_sessions_on_updated_at`  ON `sessions` (`updated_at`) [0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006003900')[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateStockData (20211006015034)
+  [1m[35m (12.5ms)[0m  [1m[35mCREATE TABLE `stock_data` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `company_name` varchar(255), `ticker_symbol` varchar(255), `country` varchar(255), `sector` varchar(255), `url` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006015034')[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateStocks (20211006015145)
+  [1m[35m (11.8ms)[0m  [1m[35mCREATE TABLE `stocks` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006015145')[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.3ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2021-10-06 01:52:22.091601', '2021-10-06 01:52:22.091601')[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to AddForeignKeyToHoldings (20211006015255)
+  [1m[35m (373.2ms)[0m  [1m[35mALTER TABLE `holdings` ADD `user_id` bigint[0m
+  [1m[35m (9.3ms)[0m  [1m[35mCREATE  INDEX `index_holdings_on_user_id`  ON `holdings` (`user_id`) [0m
+  [1m[35m (52.0ms)[0m  [1m[35mALTER TABLE `holdings` ADD CONSTRAINT `fk_rails_b5f25ff569`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (20.3ms)[0m  [1m[35mALTER TABLE `holdings` ADD `stock_id` bigint[0m
+  [1m[35m (11.8ms)[0m  [1m[35mCREATE  INDEX `index_holdings_on_stock_id`  ON `holdings` (`stock_id`) [0m
+  [1m[35m (23.1ms)[0m  [1m[35mALTER TABLE `holdings` ADD CONSTRAINT `fk_rails_1a40ae8eaa`
+FOREIGN KEY (`stock_id`)
+  REFERENCES `stocks` (`id`)
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.9ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006015255')[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.8ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (3.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (4.4ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (14.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to AddNullFalseToHoldings (20211006015815)
+  [1m[35m (49.6ms)[0m  [1m[35mALTER TABLE `holdings` CHANGE `user_id` `user_id` bigint NOT NULL[0m
+  [1m[35m (26.8ms)[0m  [1m[35mALTER TABLE `holdings` CHANGE `stock_id` `stock_id` bigint NOT NULL[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006015815')[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT GET_LOCK('6917859122423275215', 0)[0m
+  [1m[35m (3.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to SortByReferenceToHoldings (20211006020433)
+  [1m[35m (77.4ms)[0m  [1m[35mALTER TABLE `holdings` CHANGE `user_id` `user_id` bigint NOT NULL AFTER `id`[0m
+  [1m[35m (110.8ms)[0m  [1m[35mALTER TABLE `holdings` CHANGE `stock_id` `stock_id` bigint NOT NULL AFTER `user_id`[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20211006020433')[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('6917859122423275215')[0m
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m

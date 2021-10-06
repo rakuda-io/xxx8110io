@@ -7,6 +7,7 @@ RUN apt-get update -qq && \
   apt-get install -y --no-install-recommends \
   build-essential \
   nodejs \
+  mariadb-client \
   yarn && \
   apt-get clean && \
   rm --recursive --force /var/lib/apt/lists/*

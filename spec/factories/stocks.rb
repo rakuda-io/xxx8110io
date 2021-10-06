@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :stock_datum do
+  factory :stock do
     
   end
 end
