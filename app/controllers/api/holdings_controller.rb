@@ -1,25 +1,23 @@
 module Api
   class HoldingsController < ApplicationController
     before_action :authenticate_api_user!
+    before_action :set_user
     before_action :is_correct_user?
 
     def index
-      user = User.find(params[:user_id])
-      holdings = user.holdings.order(created_at: :desc)
+      holdings = @user.holdings.order(created_at: :desc)
 
       render status: 200, json: holdings
     end
 
     def show
-      user = User.find(params[:user_id])
-      holding = user.holdings.where(id: params[:id])
+      holding = @user.holdings.where(id: params[:id])
       render status: 200, json: holding
     end
 
     def create
-      user = User.find(params[:user_id])
-      holding = user.holdings.new(holding_params)
-      if user.save #get_current_dividends
+      holding = @user.holdings.new(holding_params)
+      if @user.save #get_current_dividends
         agent = Mechanize.new
         url = agent.get(holding.stock.url)
         current_dividend_amount = url.search("td")[106].text.to_f
@@ -36,8 +34,7 @@ module Api
     end
 
     def update
-      user = User.find(params[:user_id])
-      holding = user.holdings.where(id: params[:id])
+      holding = @user.holdings.where(id: params[:id])
       if holding.update!(holding_params) #get_current_dividends
         agent = Mechanize.new
         url = agent.get(holding.stock.url)
@@ -55,8 +52,7 @@ module Api
     end
 
     def destroy
-      user = User.find(params[:user_id])
-      holding = user.holdings.where(id: params[:id])
+      holding = @user.holdings.where(id: params[:id])
       if holding.destroy!
         render status: 200
       end
@@ -65,6 +61,10 @@ module Api
     private
       def holding_params
         params.require(:holding).permit(:quantity, :stock_id, :user_id)
+      end
+
+      def set_user
+        @user = User.find(params[:user_id])
       end
 
       def is_correct_user?
