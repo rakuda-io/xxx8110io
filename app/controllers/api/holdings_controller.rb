@@ -12,39 +12,42 @@ module Api
 
     def show
       holding = @user.holdings.where(id: params[:id])
+
       render status: 200, json: holding
     end
 
     def create
-      holding = @user.holdings.new(holding_params)
-      if @user.save #get_current_dividends
-        agent = Mechanize.new
-        url = agent.get(holding.stock.url)
-        current_dividend_amount = url.search("td")[106].text.to_f
-        current_dividend_rate = url.search("td")[118].text.to_f
-        holding.update(
-          dividend_amount: current_dividend_amount,
-          dividend_: current_dividend_rate,
-          total_dividend_amount: current_dividend_amount * holding.quantity,
-        )
-        render status: 200, json: holding
+      new_holding = @user.holdings.new(holding_params)
+
+      #同じstock_idが存在するなら追加・更新
+      if new_holding.is_same_stock?
+        same_holding = @user.holdings.find_by(stock_id: new_holding.stock_id)
+        same_holding.update(quantity: same_holding.quantity += new_holding.quantity)
+        same_holding.get_current_dividend
+
+        render status: 200, json: same_holding
+
+      #同じstock_idが存在しないなら新規登録
       else
-        render status: 422, json: "You must fill out the fields!!"
+        if new_holding.save
+          new_holding.get_current_dividend
+
+          render status: 200, json: new_holding
+        else
+          render status: 422, json: "You must fill out the fields!!"
+        end
       end
+
     end
 
     def update
-      holding = @user.holdings.where(id: params[:id])
-      if holding.update!(holding_params) #get_current_dividends
-        agent = Mechanize.new
-        url = agent.get(holding.stock.url)
-        current_dividend_amount = url.search("td")[106].text.to_f
-        current_dividend_rate = url.search("td")[118].text.to_f
-        holding.update!(
-          dividend_amount: current_dividend_amount,
-          dividend_: current_dividend_rate,
-          total_dividend_amount: current_dividend_amount * holding.quantity,
+      holding = @user.holdings.find(params[:id])
+      if holding_params[:quantity]
+        holding.update(
+          quantity: holding.quantity += holding_params[:quantity].to_f
         )
+        holding.get_current_dividend
+
         render status: 200, json: holding
       else
         render status: 422, json: "You must fill out the fields!!"
@@ -60,7 +63,7 @@ module Api
 
     private
       def holding_params
-        params.require(:holding).permit(:quantity, :stock_id, :user_id)
+        params.permit(:quantity, :stock_id, :user_id)
       end
 
       def set_user
@@ -69,9 +72,11 @@ module Api
 
       def is_correct_user?
         if current_api_user.id != params[:user_id].to_i
-          render json: { errors: "Access denied! No match your user id -- SignIn User ID：#{current_api_user.id} != Request User ID：#{params[:user_id]}"  }, status: 401
+          render json: { errors: "Access denied! No match your user id -- SignIn_UserID：#{current_api_user.id} != Request_UserID：#{params[:user_id]}"  }, status: 401
 
         end
       end
+
+
   end
 end
