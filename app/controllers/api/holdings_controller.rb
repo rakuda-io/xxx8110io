@@ -1,10 +1,12 @@
 module Api
   class HoldingsController < ApplicationController
-    before_action :authenticate_api_user!, except: [:index, :show]
+    before_action :authenticate_api_user!
+    before_action :is_correct_user?
 
     def index
       user = User.find(params[:user_id])
       holdings = user.holdings.order(created_at: :desc)
+
       render status: 200, json: holdings
     end
 
@@ -63,6 +65,13 @@ module Api
     private
       def holding_params
         params.require(:holding).permit(:quantity, :stock_id, :user_id)
+      end
+
+      def is_correct_user?
+        if current_api_user.id != params[:user_id].to_i
+          render json: { errors: "Access denied! No match your user id -- SignIn User ID：#{current_api_user.id} != Request User ID：#{params[:user_id]}"  }, status: 401
+
+        end
       end
   end
 end
