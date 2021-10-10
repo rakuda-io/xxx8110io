@@ -8,15 +8,19 @@ require:
 AllCops:
   # Rubyバージョン指定
   TargetRubyVersion: 2.7.2
+  # 新しい規約が登録された場合に、適用するかどうかの判定
+  NewCops: enable
   # 除外
   Exclude:
     - 'config.ru'
     - 'bin/**'
     - 'lib/**'
+    - 'node_modules/**/*'
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
     - 'vendor/**/*'
+    - 'Gemfile'
     - !ruby/regexp /old_and_unused\.rb$/
 
 # 日本語でのコメントを許可
@@ -35,7 +39,7 @@ ClassAndModuleChildren:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-#"Missing top-level class documentation comment."を無効
+# クラスのコメント必須を無視
 Style/Documentation:
   Enabled: false
 
@@ -43,6 +47,14 @@ Style/Documentation:
 Style/StringLiterals:
   Enabled: false
 
+# abc判定の基準値を15→20に変更
+Metrics/AbcSize:
+  Max: 20
+
 #"Line is too long"を無効
 Metrics/LineLength:
   Enabled: false
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 20

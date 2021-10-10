@@ -2,7 +2,7 @@ module Api
   class HoldingsController < ApplicationController
     before_action :authenticate_api_user!
     before_action :set_user
-    before_action :is_correct_user?
+    before_action :correct_user?
 
     def index
       holdings = @user.holdings.order(created_at: :desc)
@@ -25,13 +25,13 @@ module Api
         same_holding.update(quantity: same_holding.quantity += new_holding.quantity)
 
         # この処理をupdate時にするかは要検討
-        same_holding.get_current_dividend
+        same_holding.fetch_current_dividend
 
         render status: :ok, json: same_holding
 
       # 同じstock_idが存在しないなら新規登録
       elsif new_holding.save
-        new_holding.get_current_dividend
+        new_holding.fetch_current_dividend
 
         render status: :ok, json: new_holding
       else
@@ -45,7 +45,7 @@ module Api
         holding.update(
           quantity: holding.quantity += holding_params[:quantity].to_f
         )
-        holding.get_current_dividend
+        holding.fetch_current_dividend
 
         render status: :ok, json: holding
       else
@@ -68,7 +68,7 @@ module Api
       @user = User.find(params[:user_id])
     end
 
-    def is_correct_user?
+    def correct_user?
       render json: { errors: "Access denied! No match your user id -- SignIn_UserID：#{current_api_user.id} != Request_UserID：#{params[:user_id]}" }, status: :unauthorized if current_api_user.id != params[:user_id].to_i
     end
   end

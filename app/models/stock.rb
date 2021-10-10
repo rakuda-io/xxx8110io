@@ -3,7 +3,7 @@ class Stock < ApplicationRecord
   validates :ticker_symbol, presence: true
 
   # finviz.comから最新の株データを取得するためのメソッド
-  def self.get_all_stocks_data
+  def self.fetch_all_stocks_data
     agent = Mechanize.new
     next_url = "" # ページネーションのURL保存
     page = 1 # デバッグ用

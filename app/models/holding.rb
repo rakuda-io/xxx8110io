@@ -3,7 +3,7 @@ class Holding < ApplicationRecord
   belongs_to :user
 
   # 個別にdividendを取得するためのインスタンスメソッド
-  def get_current_dividend
+  def fetch_current_dividend
     agent = Mechanize.new
     url = agent.get(Stock.find(stock_id).url)
     current_dividend_amount = url.search("td")[106].text.to_f
@@ -22,7 +22,7 @@ class Holding < ApplicationRecord
 
   # メンテナンス用
   # 全Holdingsにまとめて最新情報のdividendを取得するためのクラスメソッド
-  def self.get_all_current_dividends
+  def self.fetch_all_current_dividends
     agent = Mechanize.new
     holdings = Holding.all
     holdings.map do |holding|
