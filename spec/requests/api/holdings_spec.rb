@@ -1,14 +1,14 @@
 require 'rails_helper'
 require 'net/http'
 
-#保有株一覧のJSON出力のテスト
+# 保有株一覧のJSON出力のテスト
 RSpec.describe 'Holdings API', type: :request do
   let(:base_url) { 'http://localhost:3000/api/users/' }
   let!(:user) { create(:user) }
-  let!(:user_holdings) { 3.times{create(:holding, user_id: user[:id], stock_id: stock[:id]) }}
+  let!(:user_holdings) { 3.times { create(:holding, user_id: user[:id], stock_id: stock[:id]) } }
   let!(:stock) { create(:stock) }
-  let!(:another_user_holdings) { 3.times{create(:holding, user_id: another_user[:id], stock_id: stock[:id]) }}
-  #事前にログインしておく
+  let!(:another_user_holdings) { 3.times { create(:holding, user_id: another_user[:id], stock_id: stock[:id]) } }
+  # 事前にログインしておく
   before { post 'http://localhost:3000/api/auth', params: params }
 
   describe '#index Action' do
@@ -51,9 +51,6 @@ RSpec.describe 'Holdings API', type: :request do
           expect(response).to have_http_status(401)
         end
       end
-
-
-
     end
   end
 end

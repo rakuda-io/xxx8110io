@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-#devise_token_authによるユーザー認証機能のテスト
+# devise_token_authによるユーザー認証機能のテスト
 RSpec.describe 'User Authorization', type: :request do
   let(:base_url) { 'http://localhost:3000/api/auth/' }
 
   describe 'Sign up Function' do
-    before {post base_url, params: params }
+    before { post base_url, params: params }
 
     context '正常' do
       let(:user) { create(:user) }
@@ -65,7 +65,7 @@ RSpec.describe 'User Authorization', type: :request do
     let!(:user) { create(:user) }
     let(:tokens) { sign_in(params) }
     let(:params) { { email: user[:email], password: 'password' } }
-    #sign_inしている状態を作る
+    # sign_inしている状態を作る
     before { post base_url + 'sign_in', params: params }
 
     context '正常' do
@@ -95,7 +95,7 @@ RSpec.describe 'User Authorization', type: :request do
     let(:params) { { email: user[:email], password: 'password' } }
     let(:new_name) { { name: 'new_user' } }
     let(:new_email) { { email: 'new@test.com' } }
-    #sign_inしている状態を作る
+    # sign_inしている状態を作る
     before { post base_url + 'sign_in', params: params }
 
     context '正常' do
@@ -151,7 +151,7 @@ RSpec.describe 'User Authorization', type: :request do
     let(:tokens) { sign_in(params) }
     let(:params) { { email: user[:email], password: 'password' } }
     let(:new_password) { { password: 'new_password', password_confirmation: 'new_password' } }
-    #sign_inしている状態を作る
+    # sign_inしている状態を作る
     before { post base_url + 'sign_in', params: params }
 
     context '正常' do

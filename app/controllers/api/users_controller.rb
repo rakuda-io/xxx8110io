@@ -1,6 +1,6 @@
 module Api
   class UsersController < ApplicationController
-    before_action :authenticate_api_user!, except: [:index, :show]
+    before_action :authenticate_api_user!, except: %i[index show]
 
     def index
       users = User.order(created_at: :desc)
@@ -12,8 +12,6 @@ module Api
       render json: user
     end
 
-    def create
-
-    end
+    def create; end
   end
 end
