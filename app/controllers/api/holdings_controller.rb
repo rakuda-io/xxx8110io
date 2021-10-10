@@ -20,9 +20,11 @@ module Api
       new_holding = @user.holdings.new(holding_params)
 
       #同じstock_idが存在するなら追加・更新
-      if new_holding.is_same_stock?
+      if new_holding.same_stock_id_exist?
         same_holding = @user.holdings.find_by(stock_id: new_holding.stock_id)
         same_holding.update(quantity: same_holding.quantity += new_holding.quantity)
+
+        #この処理をupdate時にするかは要検討
         same_holding.get_current_dividend
 
         render status: 200, json: same_holding
@@ -55,9 +57,9 @@ module Api
     end
 
     def destroy
-      holding = @user.holdings.where(id: params[:id])
+      holding = @user.holdings.find(params[:id])
       if holding.destroy!
-        render status: 200
+        render status: 200, json: "Delete holdingID: #{params[:id]}"
       end
     end
 
@@ -73,10 +75,7 @@ module Api
       def is_correct_user?
         if current_api_user.id != params[:user_id].to_i
           render json: { errors: "Access denied! No match your user id -- SignIn_UserID：#{current_api_user.id} != Request_UserID：#{params[:user_id]}"  }, status: 401
-
         end
       end
-
-
   end
 end

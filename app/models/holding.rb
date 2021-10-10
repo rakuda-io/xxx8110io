@@ -16,7 +16,7 @@ class Holding < ApplicationRecord
   end
 
   #同じstock_idが該当userのholdingsに存在するか？を返すインスタンスメソッド
-  def is_same_stock?
+  def same_stock_id_exist?
     Holding.where(user_id: self.user_id).pluck(:stock_id).include?(self.stock_id)
   end
 
