@@ -17,7 +17,7 @@ RSpec.describe 'Holdings API', type: :request do
       let(:params) { { email: user[:email], password: 'password' } }
 
       xcontext 'ユーザーAがユーザーAの保有株一覧を取得しようとした場合' do
-        before { get base_url + user[:id].to_s + '/holdings', headers: tokens }
+        before { get "#{base_url}#{user[:id]}/holdings", headers: tokens }
 
         it 'ログインしたユーザーの持っている保有株一覧が取得できること' do
           expect(JSON.parse(response.body)[0]['user']['name']).to eq(user[:name])
@@ -30,7 +30,7 @@ RSpec.describe 'Holdings API', type: :request do
       context 'ユーザーAがユーザーBの保有株一覧を取得しようとした場合' do
         let!(:another_user) { create(:user) }
 
-        before { get base_url + another_user[:id].to_s + '/holdings', headers: tokens }
+        before { get "#{base_url}#{another_user[:id]}/holdings", headers: tokens }
 
         it '保有株一覧が取得できないこと' do
           expect(JSON.parse(response.body)['errors']).to include('Access denied! No match your user id')
@@ -43,7 +43,7 @@ RSpec.describe 'Holdings API', type: :request do
 
     xcontext '異常' do
       context 'token情報がヘッダーに無い場合' do
-        before { get base_url + user[:id].to_s + '/holdings' }
+        before { get "#{base_url}#{user[:id]}/holdings" }
         it '保有株一覧が取得できないこと' do
           expect(JSON.parse(response.body)['errors']).to eq(["You need to sign in or sign up before continuing."])
         end

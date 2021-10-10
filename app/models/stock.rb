@@ -1,5 +1,7 @@
 class Stock < ApplicationRecord
-  has_many :holdings
+  # レコードにエラー情報（ActiveRecordのerror）が付加される
+  has_many :holdings, dependent: :restrict_with_error
+
   validates :ticker_symbol, presence: true
 
   # finviz.comから最新の株データを取得するためのメソッド
@@ -9,13 +11,13 @@ class Stock < ApplicationRecord
     page = 1 # デバッグ用
 
     # Nextリンクがなくなるまで繰り返す
-    while true
-      puts "●●●●●●●●●●●●●●● #{page} ページ目 ●●●●●●●●●●●●●●●" # デバッグ用
+    loop do
+      Rails.logger.debug { "●●●●●●●●●●●●●●● #{page} ページ目 ●●●●●●●●●●●●●●●" } # デバッグ用
       page += 1 # デバッグ用
 
       # 一覧ページ（current_page）のデータを一時的に取得
-      current_page = agent.get("https://finviz.com/screener.ashx?v=111" + next_url)
-      tickers = current_page.search(".screener-link-primary").map { |ticker| ticker.text }
+      current_page = agent.get("https://finviz.com/screener.ashx?v=111#{next_url}")
+      tickers = current_page.search(".screener-link-primary").map(&:text)
       urls = current_page.search(".screener-body-table-nw a").map { |url| url.get_attribute('href') }.uniq
 
       # 取得した一覧ページのデータを使って個別ページ（detailed_page）のデータを取得して各カラムに保存
@@ -26,7 +28,7 @@ class Stock < ApplicationRecord
         country = detailed_page.search("td")[30].search("a").last.text
         create!(
           ticker_symbol: ticker,
-          url: "https://finviz.com/" + url,
+          url: "https://finviz.com/#{url}",
           company_name: company_name,
           sector: sector,
           country: country
@@ -39,7 +41,7 @@ class Stock < ApplicationRecord
       if next_link.text == "next"
         next_url = next_link.get_attribute('href').match(/&.+/).to_s
       else
-        puts "●●●●●●●●●●●●●●● 全データ取り込み完了 ●●●●●●●●●●●●●●● "
+        Rails.logger.debug "●●●●●●●●●●●●●●● 全データ取り込み完了 ●●●●●●●●●●●●●●● "
         break
       end
     end

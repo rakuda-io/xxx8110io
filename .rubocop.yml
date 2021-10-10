@@ -21,6 +21,7 @@ AllCops:
     - 'script/**/*'
     - 'vendor/**/*'
     - 'Gemfile'
+    - 'spec/rails_helper.rb'
     - !ruby/regexp /old_and_unused\.rb$/
 
 # 日本語でのコメントを許可
@@ -52,7 +53,7 @@ Metrics/AbcSize:
   Max: 20
 
 #"Line is too long"を無効
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
 Metrics/MethodLength:

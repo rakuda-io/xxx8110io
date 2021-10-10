@@ -32,7 +32,7 @@ RSpec.describe 'User Authorization', type: :request do
   end
 
   describe 'Sign in Function' do
-    before { post base_url + 'sign_in', params: params }
+    before { post "#{base_url}sign_in", params: params }
 
     context '正常' do
       let(:user) { create(:user) }
@@ -66,11 +66,11 @@ RSpec.describe 'User Authorization', type: :request do
     let(:tokens) { sign_in(params) }
     let(:params) { { email: user[:email], password: 'password' } }
     # sign_inしている状態を作る
-    before { post base_url + 'sign_in', params: params }
+    before { post "#{base_url}sign_in", params: params }
 
     context '正常' do
       it 'ログインしたユーザーがログアウト出来ること' do
-        delete base_url + 'sign_out', headers: tokens
+        delete "#{base_url}sign_out", headers: tokens
         expect(JSON.parse(response.body)['success']).to eq(true)
       end
       it 'HTTPステータスが200であること' do
@@ -79,7 +79,7 @@ RSpec.describe 'User Authorization', type: :request do
     end
 
     context '異常' do
-      before { delete base_url + 'sign_out', headers: nil }
+      before { delete "#{base_url}sign_out", headers: nil }
       it 'ログインしたユーザーがログアウト出来ないこと' do
         expect(JSON.parse(response.body)['errors']).to eq(["User was not found or was not logged in."])
       end
@@ -96,7 +96,7 @@ RSpec.describe 'User Authorization', type: :request do
     let(:new_name) { { name: 'new_user' } }
     let(:new_email) { { email: 'new@test.com' } }
     # sign_inしている状態を作る
-    before { post base_url + 'sign_in', params: params }
+    before { post "#{base_url}sign_in", params: params }
 
     context '正常' do
       context '名前の変更' do
@@ -152,14 +152,14 @@ RSpec.describe 'User Authorization', type: :request do
     let(:params) { { email: user[:email], password: 'password' } }
     let(:new_password) { { password: 'new_password', password_confirmation: 'new_password' } }
     # sign_inしている状態を作る
-    before { post base_url + 'sign_in', params: params }
+    before { post "#{base_url}sign_in", params: params }
 
     context '正常' do
-      before { put base_url + 'password', params: new_password, headers: tokens }
+      before { put "#{base_url}password", params: new_password, headers: tokens }
 
       it 'パスワードが変更できて再度ログインできること' do
-        delete base_url + 'sign_out', headers: tokens
-        post base_url + 'sign_in', params: { email: user[:email], password: new_password[:password] }
+        delete "#{base_url}sign_out", headers: tokens
+        post "#{base_url}sign_in", params: { email: user[:email], password: new_password[:password] }
         expect(JSON.parse(response.body)['data']['email']).to eq(user[:email])
       end
       it 'HTTPステータスが200であること' do
@@ -169,7 +169,7 @@ RSpec.describe 'User Authorization', type: :request do
 
     context '異常' do
       context 'token情報がヘッダーに無い場合' do
-        before { put base_url + 'password', params: new_password }
+        before { put "#{base_url}password", params: new_password }
 
         it 'パスワードが変更できないこと' do
           expect(JSON.parse(response.body)['errors']).to eq(["Unauthorized"])
@@ -179,7 +179,7 @@ RSpec.describe 'User Authorization', type: :request do
         end
       end
       context '適切なリクエスト更新データ(new_password)がリクエストに無い場合' do
-        before { put base_url + 'password', headers: tokens }
+        before { put "#{base_url}password", headers: tokens }
 
         it 'パスワードが変更できないこと' do
           expect(JSON.parse(response.body)['errors']).to eq(["You must fill out the fields labeled 'Password' and 'Password confirmation'."])
