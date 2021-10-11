@@ -5,6 +5,9 @@ inherit_from: .rubocop_todo.yml
 require:
   - rubocop-rails
 
+inherit_from:
+  - config/rubocop/rspec.yml
+
 AllCops:
   # Rubyバージョン指定
   TargetRubyVersion: 2.7.2
