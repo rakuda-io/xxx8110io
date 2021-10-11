@@ -14,8 +14,9 @@ RSpec.describe 'User Authorization', type: :request do
       it 'ユーザーが新規登録できること' do
         expect(user).to be_present
       end
+
       it 'HTTPステータスが200であること' do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
 
@@ -25,8 +26,9 @@ RSpec.describe 'User Authorization', type: :request do
       it 'ユーザーが新規登録できないこと' do
         expect(JSON.parse(response.body)['errors']['full_messages']).to eq(["Password can't be blank"])
       end
+
       it 'HTTPステータスが422である(処理ができない)こと' do
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
@@ -40,9 +42,11 @@ RSpec.describe 'User Authorization', type: :request do
       it 'ログインしようとしたユーザーでログイン出来ること' do
         expect(JSON.parse(response.body)['data']['email']).to eq(user[:email])
       end
+
       it 'HTTPステータスが200であること' do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
+
       it 'ヘッダーに正しいトークン情報が付与されていること' do
         tokens = sign_in(params)
         expect(response.headers['access-token']).to eq(tokens['access-token'])
@@ -55,8 +59,9 @@ RSpec.describe 'User Authorization', type: :request do
       it 'ログインしようとしたユーザーでログイン出来ないこと' do
         expect(JSON.parse(response.body)['errors']).to eq(["Invalid login credentials. Please try again."])
       end
+
       it 'HTTPステータスが401である(アクセス権がない)こと' do
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end
@@ -73,18 +78,21 @@ RSpec.describe 'User Authorization', type: :request do
         delete "#{base_url}sign_out", headers: tokens
         expect(JSON.parse(response.body)['success']).to eq(true)
       end
+
       it 'HTTPステータスが200であること' do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
 
     context '異常' do
       before { delete "#{base_url}sign_out", headers: nil }
+
       it 'ログインしたユーザーがログアウト出来ないこと' do
         expect(JSON.parse(response.body)['errors']).to eq(["User was not found or was not logged in."])
       end
+
       it 'HTTPステータスが404である(ページが見つからない)こと' do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
@@ -104,8 +112,9 @@ RSpec.describe 'User Authorization', type: :request do
           put base_url, params: new_name, headers: tokens
           expect(JSON.parse(response.body)['data']['name']).to eq(new_name[:name])
         end
+
         it 'HTTPステータスが200であること' do
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:ok)
         end
       end
 
@@ -114,8 +123,9 @@ RSpec.describe 'User Authorization', type: :request do
           put base_url, params: new_email, headers: tokens
           expect(JSON.parse(response.body)['data']['email']).to eq(new_email[:email])
         end
+
         it 'HTTPステータスが200であること' do
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:ok)
         end
       end
     end
@@ -127,9 +137,10 @@ RSpec.describe 'User Authorization', type: :request do
         it 'ユーザーが名前を変更できないこと' do
           expect(JSON.parse(response.body)['errors']).to eq(["User not found."])
         end
+
         it 'HTTPステータスが404である(ページが見つからない)こと' do
           put base_url, params: new_name, headers: nil
-          expect(response).to have_http_status(404)
+          expect(response).to have_http_status(:not_found)
         end
       end
 
@@ -139,8 +150,9 @@ RSpec.describe 'User Authorization', type: :request do
         it 'ユーザーが名前を変更できないこと' do
           expect(JSON.parse(response.body)['errors']).to eq(["Please submit proper account update data in request body."])
         end
+
         it 'HTTPステータスが422である(処理ができない)こと' do
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
     end
@@ -162,8 +174,9 @@ RSpec.describe 'User Authorization', type: :request do
         post "#{base_url}sign_in", params: { email: user[:email], password: new_password[:password] }
         expect(JSON.parse(response.body)['data']['email']).to eq(user[:email])
       end
+
       it 'HTTPステータスが200であること' do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
 
@@ -174,18 +187,21 @@ RSpec.describe 'User Authorization', type: :request do
         it 'パスワードが変更できないこと' do
           expect(JSON.parse(response.body)['errors']).to eq(["Unauthorized"])
         end
+
         it 'HTTPステータスが401である(アクセス権がない)こと' do
-          expect(response).to have_http_status(401)
+          expect(response).to have_http_status(:unauthorized)
         end
       end
+
       context '適切なリクエスト更新データ(new_password)がリクエストに無い場合' do
         before { put "#{base_url}password", headers: tokens }
 
         it 'パスワードが変更できないこと' do
           expect(JSON.parse(response.body)['errors']).to eq(["You must fill out the fields labeled 'Password' and 'Password confirmation'."])
         end
+
         it 'HTTPステータスが422である(処理ができない)こと' do
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
     end
