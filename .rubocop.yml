@@ -44,7 +44,7 @@ Style/FrozenStringLiteralComment:
 Style/Documentation:
   Enabled: false
 
-#"Prefer single-quoted strings when you don't need string interpolation or special symbols."を無効
+# "Prefer single-quoted strings when you don't need string interpolation or special symbols."を無効
 Style/StringLiterals:
   Enabled: false
 
@@ -52,9 +52,14 @@ Style/StringLiterals:
 Metrics/AbcSize:
   Max: 20
 
-#"Line is too long"を無効
+# "Line is too long"を無効
 Layout/LineLength:
   Enabled: false
+
+# spec_fileのみブロックの長さの警告を無視
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
 
 Metrics/MethodLength:
   CountComments: false
