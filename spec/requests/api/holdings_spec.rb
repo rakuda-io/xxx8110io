@@ -16,7 +16,7 @@ RSpec.describe 'Holdings API', type: :request do
       let(:tokens) { sign_in(params) }
       let(:params) { { email: user[:email], password: 'password' } }
 
-      xcontext 'ユーザーAがユーザーAの保有株一覧を取得しようとした場合' do
+      context 'ユーザーAがユーザーAの保有株一覧を取得しようとした場合' do
         before { get "#{base_url}#{user[:id]}/holdings", headers: tokens }
 
         it 'ログインしたユーザーの持っている保有株一覧が取得できること' do
